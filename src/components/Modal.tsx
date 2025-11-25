@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import '../styles/modal.css';
 import { Step1Nominal } from './Step1Nominal';
 import { Step2Design } from './Step2Design';
 import { Step3Checkout } from './Step3Checkout';

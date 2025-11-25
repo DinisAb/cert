@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../styles/accordion.css';
 import { FAQ_ITEMS } from '../types';
 
 export const FAQ: React.FC = () => {

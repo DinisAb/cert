@@ -1,5 +1,3 @@
-import '../styles/modal.css';
-
 interface StepIndicatorProps {
   currentStep: number;
 }

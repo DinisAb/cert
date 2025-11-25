@@ -1,0 +1,123 @@
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+}
+
+.modal-backdrop {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.modal-content {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.accordion-content.open {
+  max-height: 200px;
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(45deg);
+}
+
+.nominal-card {
+  transition: all 0.2s ease;
+}
+
+.nominal-card:hover {
+  border-color: #000;
+}
+
+.nominal-card.selected {
+  border-color: #C4785A;
+  background: #C4785A;
+  color: #fff;
+}
+
+.nominal-card.selected .price-text {
+  color: #D4AF37;
+}
+
+.design-card {
+  transition: all 0.2s ease;
+}
+
+.design-card:hover {
+  border-color: #999;
+}
+
+.design-card.selected {
+  border-color: #C4785A;
+}
+
+.caption-card {
+  transition: all 0.2s ease;
+}
+
+.caption-card:hover {
+  border-color: #999;
+}
+
+.caption-card.selected {
+  border-color: #C4785A;
+  background: #C4785A;
+  color: #fff;
+}
+
+.step-indicator {
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+  background: #C4785A;
+  color: #fff;
+}
+
+.step-indicator.completed {
+  background: #C4785A;
+  color: #fff;
+}
+
+.certificate-preview {
+  background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+}
+
+.gold-accent {
+  color: #D4AF37;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

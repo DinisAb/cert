@@ -1,4 +1,4 @@
-import '../styles/cards.css';
+import '../styles/index.css';
 import { BACKGROUND_IMAGES, PRESET_CAPTIONS } from '../types';
 
 interface Step2DesignProps {

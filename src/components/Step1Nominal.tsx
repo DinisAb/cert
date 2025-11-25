@@ -1,5 +1,3 @@
-import '../styles/cards.css';
-
 interface Step1NominalProps {
   selectedNominal: number | null;
   onSelectNominal: (amount: number) => void;

@@ -4,10 +4,7 @@ import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
 import { useCertificate } from './hooks/useCertificate';
-import './styles/global.css';
-import './styles/accordion.css';
-import './styles/cards.css';
-import './styles/modal.css';
+import './styles/index.css';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
