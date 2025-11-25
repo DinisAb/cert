@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/faq.tsx","./src/components/footer.tsx","./src/components/hero.tsx","./src/components/modal.tsx","./src/components/step1nominal.tsx","./src/components/step2design.tsx","./src/components/step3checkout.tsx","./src/components/stepindicator.tsx","./src/hooks/usecertificate.ts","./src/types/index.ts"],"version":"5.9.3"}

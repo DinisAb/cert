@@ -1,0 +1,23 @@
+.modal-backdrop {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.modal-content {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+.step-indicator {
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+  background: #C4785A;
+  color: #fff;
+}
+
+.step-indicator.completed {
+  background: #C4785A;
+  color: #fff;
+}

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подарочный сертификат UVI</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .modal-backdrop {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .modal-content {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+        
+        .accordion-content.open {
+            max-height: 200px;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-item.open .accordion-icon {
+            transform: rotate(45deg);
+        }
+        
+        .nominal-card {
+            transition: all 0.2s ease;
+        }
+        
+        .nominal-card:hover {
+            border-color: #000;
+        }
+        
+        .nominal-card.selected {
+            border-color: #C4785A;
+            background: #C4785A;
+            color: #fff;
+        }
+        
+        .nominal-card.selected .price-text {
+            color: #D4AF37;
+        }
+        
+        .design-card {
+            transition: all 0.2s ease;
+        }
+        
+        .design-card:hover {
+            border-color: #999;
+        }
+        
+        .design-card.selected {
+            border-color: #C4785A;
+        }
+        
+        .caption-card {
+            transition: all 0.2s ease;
+        }
+        
+        .caption-card.selected {
+            border-color: #C4785A;
+            background: #C4785A;
+            color: #fff;
+        }
+        
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            background: #C4785A;
+            color: #fff;
+        }
+        
+        .step-indicator.completed {
+            background: #C4785A;
+            color: #fff;
+        }
+        
+        .certificate-preview {
+            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+        }
+        
+        .gold-accent {
+            color: #D4AF37;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #000;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <!-- Hero Section -->
+    <section class="min-h-[70vh] flex flex-col justify-center items-center px-6 text-center">
+        <div class="max-w-2xl">
+            <p class="text-xs tracking-[0.3em] text-gray-500 mb-6 uppercase">UVI Jewelry</p>
+            <h1 class="text-4xl md:text-6xl font-light tracking-tight mb-4">Подарочный сертификат</h1>
+            <p class="text-lg md:text-xl text-gray-500 font-light mb-12">Современные ювелирные украшения</p>
+            <button onclick="openModal()" class="bg-[#C4785A] text-white px-10 py-4 text-sm tracking-wide hover:bg-[#B06A4E] transition-colors">
+                Выбрать номинал
+            </button>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="max-w-2xl mx-auto px-6 py-20">
+        <h2 class="text-2xl font-light mb-12 text-center">Частые вопросы</h2>
+        
+        <div class="space-y-0 border-t border-gray-200">
+            <!-- FAQ Item 1 -->
+            <div class="accordion-item border-b border-gray-200">
+                <button class="w-full py-6 flex justify-between items-center text-left" onclick="toggleAccordion(this)">
+                    <span class="text-sm md:text-base font-normal pr-4">Как приобрести электронный подарочный сертификат?</span>
+                    <svg class="accordion-icon w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-sm text-gray-600 pb-6 leading-relaxed">
+                        Подарочный сертификат можно приобрести в интернет-магазине, на сайте и по телефону 8 800 000 00 00. Оформите сертификат, указав номер телефона или электронную почту получателя или отправьте его себе.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 2 -->
+            <div class="accordion-item border-b border-gray-200">
+                <button class="w-full py-6 flex justify-between items-center text-left" onclick="toggleAccordion(this)">
+                    <span class="text-sm md:text-base font-normal pr-4">Есть ли ограничения по номиналу сертификата?</span>
+                    <svg class="accordion-icon w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-sm text-gray-600 pb-6 leading-relaxed">
+                        Номинал сертификата не может быть меньше 500 ₽. Максимальный номинал вы устанавливаете сами.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 3 -->
+            <div class="accordion-item border-b border-gray-200">
+                <button class="w-full py-6 flex justify-between items-center text-left" onclick="toggleAccordion(this)">
+                    <span class="text-sm md:text-base font-normal pr-4">Как использовать подарочный сертификат?</span>
+                    <svg class="accordion-icon w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-sm text-gray-600 pb-6 leading-relaxed">
+                        Введите код сертификата при оформлении заказа на сайте или назовите его продавцу в розничном магазине UVI. Сертификат можно использовать частично — остаток сохранится.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 4 -->
+            <div class="accordion-item border-b border-gray-200">
+                <button class="w-full py-6 flex justify-between items-center text-left" onclick="toggleAccordion(this)">
+                    <span class="text-sm md:text-base font-normal pr-4">Можно ли купить пластиковый сертификат?</span>
+                    <svg class="accordion-icon w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-sm text-gray-600 pb-6 leading-relaxed">
+                        Пластиковые подарочные сертификаты доступны только в розничных магазинах UVI.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center border-t border-gray-100">
+        <p class="text-xs text-gray-400 tracking-wide">© 2024 UVI Jewelry. Все права защищены.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden">
+        <div class="modal-backdrop absolute inset-0" onclick="closeModal()"></div>
+        <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg">
+            <div class="modal-content bg-white rounded-2xl overflow-hidden h-full md:h-auto md:max-h-[90vh] flex flex-col">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                    <div class="flex items-center gap-4">
+                        <!-- Step Indicators -->
+                        <div class="flex items-center gap-2">
+                            <div id="step1-indicator" class="step-indicator w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs active">1</div>
+                            <div class="w-6 h-px bg-gray-200"></div>
+                            <div id="step2-indicator" class="step-indicator w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs">2</div>
+                            <div class="w-6 h-px bg-gray-200"></div>
+                            <div id="step3-indicator" class="step-indicator w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-xs">3</div>
+                        </div>
+                    </div>
+                    <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="flex-1 overflow-y-auto p-6">
+                    <!-- Step 1: Nominal -->
+                    <div id="step1" class="step-content">
+                        <h3 class="text-xl font-light mb-2">Выберите номинал</h3>
+                        <p class="text-sm text-gray-500 mb-6">Стоимость подарочного сертификата</p>
+                        
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <button class="nominal-card border border-gray-200 rounded-xl p-4 text-center" onclick="selectNominal(this, 3000)">
+                                <span class="price-text text-lg gold-accent font-medium">3 000 ₽</span>
+                            </button>
+                            <button class="nominal-card border border-gray-200 rounded-xl p-4 text-center" onclick="selectNominal(this, 5000)">
+                                <span class="price-text text-lg gold-accent font-medium">5 000 ₽</span>
+                            </button>
+                            <button class="nominal-card border border-gray-200 rounded-xl p-4 text-center" onclick="selectNominal(this, 10000)">
+                                <span class="price-text text-lg gold-accent font-medium">10 000 ₽</span>
+                            </button>
+                            <button class="nominal-card border border-gray-200 rounded-xl p-4 text-center" onclick="selectNominal(this, 15000)">
+                                <span class="price-text text-lg gold-accent font-medium">15 000 ₽</span>
+                            </button>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <button id="customAmountBtn" class="nominal-card w-full border border-gray-200 rounded-xl p-4 text-center" onclick="toggleCustomAmount()">
+                                <span class="text-sm text-gray-600">Другая сумма</span>
+                            </button>
+                            <div id="customAmountInput" class="hidden mt-3">
+                                <div class="relative">
+                                    <input type="number" id="customAmount" placeholder="Введите сумму" min="500" class="w-full border border-gray-200 rounded-xl p-4 text-center text-lg" oninput="updateCustomAmount(this.value)">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">₽</span>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2 text-center">Минимум 500 ₽</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Design -->
+                    <div id="step2" class="step-content hidden">
+                        <h3 class="text-xl font-light mb-2">Выберите фон</h3>
+                        <p class="text-sm text-gray-500 mb-4">Оформление электронного сертификата</p>
+                        
+                        <div class="grid grid-cols-4 gap-2 mb-6">
+                            <button class="design-card border-2 border-gray-200 rounded-lg overflow-hidden" onclick="selectBackground(this, 'bg1')">
+                                <div class="aspect-square relative overflow-hidden">
+                                    <img src="https://cdn.tvuvi.ru/Admin-banners/830f2a5b-8e31-11f0-8203-8e816c8c8642.webp" alt="Фон 1" class="w-[200%] h-[200%] object-cover object-right-bottom">
+                                </div>
+                            </button>
+                            <button class="design-card border-2 border-gray-200 rounded-lg overflow-hidden" onclick="selectBackground(this, 'bg2')">
+                                <div class="aspect-square relative overflow-hidden">
+                                    <img src="https://cdn.tvuvi.ru/Admin-banners/c619a2a4-8e30-11f0-b1a7-3251d6b48a16.webp" alt="Фон 2" class="w-[200%] h-[200%] object-cover object-right-bottom">
+                                </div>
+                            </button>
+                            <button class="design-card border-2 border-gray-200 rounded-lg overflow-hidden" onclick="selectBackground(this, 'bg3')">
+                                <div class="aspect-square relative overflow-hidden">
+                                    <img src="https://cdn.tvuvi.ru/Admin-banners/daad27be-8e30-11f0-b1a7-3251d6b48a16.webp" alt="Фон 3" class="w-[200%] h-[200%] object-cover object-right-bottom">
+                                </div>
+                            </button>
+                            <button class="design-card border-2 border-gray-200 rounded-lg overflow-hidden" onclick="selectBackground(this, 'bg4')">
+                                <div class="aspect-square relative overflow-hidden">
+                                    <img src="https://cdn.tvuvi.ru/Admin-banners/25d25729-a8d3-11f0-a63a-b66d82135efd.webp" alt="Фон 4" class="w-[200%] h-[200%] object-cover object-right-bottom">
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <!-- Caption Selection -->
+                        <div id="captionSection" class="hidden fade-in">
+                            <h4 class="text-sm font-medium mb-3">Выберите надпись</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <button class="caption-card px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-gray-400 transition-colors" onclick="selectCaption(this, 'Просто так')">Просто так</button>
+                                <button class="caption-card px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-gray-400 transition-colors" onclick="selectCaption(this, 'Дорогой подруге')">Дорогой подруге</button>
+                                <button class="caption-card px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-gray-400 transition-colors" onclick="selectCaption(this, 'Любимой маме')">Любимой маме</button>
+                                <button class="caption-card px-4 py-2 border border-gray-200 rounded-full text-sm hover:border-gray-400 transition-colors" onclick="selectCaption(this, 'С днём рождения')">С днём рождения</button>
+                            </div>
+                            
+                            <!-- Custom Caption -->
+                            <div class="relative">
+                                <input type="text" id="customCaption" maxlength="30" placeholder="Или введите свою надпись..." class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm pr-16" oninput="updateCustomCaption(this.value)">
+                                <span id="charCounter" class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-300">0/30</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview -->
+                        <div id="designPreview" class="hidden mt-6">
+                            <p class="text-xs text-gray-500 mb-2">Предпросмотр</p>
+                            <div class="rounded-xl overflow-hidden relative">
+                                <img id="previewImage" src="" alt="Превью сертификата" class="w-full aspect-[16/9] object-cover">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20">
+                                    <p class="text-xs tracking-[0.2em] text-white/80 mb-1">UVI JEWELRY</p>
+                                    <p id="previewOccasion" class="text-sm text-white mb-1"></p>
+                                    <p class="text-3xl text-white font-light" id="previewAmount"></p>
+                                    <p class="text-xs text-white/70 mt-1">Подарочный сертификат</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Checkout -->
+                    <div id="step3" class="step-content hidden">
+                        <h3 class="text-xl font-light mb-2">Оформление</h3>
+                        <p class="text-sm text-gray-500 mb-6">Данные получателя сертификата</p>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div>
+                                <label class="text-xs text-gray-500 mb-1 block">Email получателя</label>
+                                <input type="email" id="recipientEmail" placeholder="email@example.com" class="w-full border border-gray-200 rounded-xl p-4 text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 mb-1 block">Или номер телефона</label>
+                                <input type="tel" id="recipientPhone" placeholder="+7 (999) 999-99-99" class="w-full border border-gray-200 rounded-xl p-4 text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 mb-1 block">Ваше имя</label>
+                                <input type="text" id="senderName" placeholder="Как вас зовут?" class="w-full border border-gray-200 rounded-xl p-4 text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-500 mb-1 block">Пожелание (необязательно)</label>
+                                <textarea id="message" placeholder="Напишите тёплые слова..." rows="3" class="w-full border border-gray-200 rounded-xl p-4 text-sm resize-none"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Order Summary -->
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Сертификат</span>
+                                <span class="text-lg gold-accent font-medium" id="summaryAmount"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="p-6 border-t border-gray-100">
+                    <div class="flex gap-3">
+                        <button id="backBtn" class="hidden flex-1 border border-gray-200 text-black py-4 rounded-xl text-sm hover:bg-gray-50 transition-colors" onclick="prevStep()">
+                            Назад
+                        </button>
+                        <button id="nextBtn" class="flex-1 bg-[#C4785A] text-white py-4 rounded-xl text-sm hover:bg-[#B06A4E] transition-colors disabled:opacity-30 disabled:cursor-not-allowed" onclick="nextStep()" disabled>
+                            Далее
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedNominal = null;
+        let selectedBackground = null;
+        let selectedCaption = null;
+        
+        const backgroundImages = {
+            'bg1': 'https://cdn.tvuvi.ru/Admin-banners/830f2a5b-8e31-11f0-8203-8e816c8c8642.webp',
+            'bg2': 'https://cdn.tvuvi.ru/Admin-banners/c619a2a4-8e30-11f0-b1a7-3251d6b48a16.webp',
+            'bg3': 'https://cdn.tvuvi.ru/Admin-banners/daad27be-8e30-11f0-b1a7-3251d6b48a16.webp',
+            'bg4': 'https://cdn.tvuvi.ru/Admin-banners/25d25729-a8d3-11f0-a63a-b66d82135efd.webp'
+        };
+        
+        function openModal() {
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = '';
+            resetModal();
+        }
+        
+        function resetModal() {
+            currentStep = 1;
+            selectedNominal = null;
+            selectedBackground = null;
+            selectedCaption = null;
+            updateStepDisplay();
+            document.querySelectorAll('.nominal-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.caption-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('customAmountInput').classList.add('hidden');
+            document.getElementById('captionSection').classList.add('hidden');
+            document.getElementById('designPreview').classList.add('hidden');
+            document.getElementById('customCaption').value = '';
+            document.getElementById('charCounter').textContent = '0/30';
+            document.getElementById('nextBtn').disabled = true;
+        }
+        
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const content = button.nextElementSibling;
+            const isOpen = item.classList.contains('open');
+            
+            // Close all
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('open');
+                i.querySelector('.accordion-content').classList.remove('open');
+            });
+            
+            // Open current if it was closed
+            if (!isOpen) {
+                item.classList.add('open');
+                content.classList.add('open');
+            }
+        }
+        
+        function selectNominal(card, amount) {
+            document.querySelectorAll('.nominal-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedNominal = amount;
+            document.getElementById('customAmountInput').classList.add('hidden');
+            updateNextButton();
+        }
+        
+        function toggleCustomAmount() {
+            const input = document.getElementById('customAmountInput');
+            const btn = document.getElementById('customAmountBtn');
+            document.querySelectorAll('.nominal-card').forEach(c => c.classList.remove('selected'));
+            btn.classList.add('selected');
+            input.classList.toggle('hidden');
+            if (!input.classList.contains('hidden')) {
+                document.getElementById('customAmount').focus();
+            }
+        }
+        
+        function updateCustomAmount(value) {
+            const amount = parseInt(value);
+            if (amount >= 500) {
+                selectedNominal = amount;
+            } else {
+                selectedNominal = null;
+            }
+            updateNextButton();
+        }
+        
+        function selectBackground(card, bg) {
+            document.querySelectorAll('.design-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedBackground = bg;
+            
+            // Show caption section
+            document.getElementById('captionSection').classList.remove('hidden');
+            
+            // Update preview
+            updatePreview();
+            updateNextButton();
+        }
+        
+        function selectCaption(card, caption) {
+            document.querySelectorAll('.caption-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedCaption = caption;
+            
+            // Clear custom input
+            document.getElementById('customCaption').value = '';
+            document.getElementById('charCounter').textContent = '0/30';
+            
+            updatePreview();
+            updateNextButton();
+        }
+        
+        function updateCustomCaption(value) {
+            // Clear preset selection
+            document.querySelectorAll('.caption-card').forEach(c => c.classList.remove('selected'));
+            
+            // Update counter
+            const counter = document.getElementById('charCounter');
+            counter.textContent = value.length + '/30';
+            
+            // Update counter color based on remaining
+            if (value.length >= 25) {
+                counter.classList.remove('text-gray-300');
+                counter.classList.add('text-gray-500');
+            } else {
+                counter.classList.remove('text-gray-500');
+                counter.classList.add('text-gray-300');
+            }
+            
+            if (value.trim()) {
+                selectedCaption = value;
+            } else {
+                selectedCaption = null;
+            }
+            
+            updatePreview();
+            updateNextButton();
+        }
+        
+        function updatePreview() {
+            if (selectedBackground) {
+                const preview = document.getElementById('designPreview');
+                preview.classList.remove('hidden');
+                document.getElementById('previewImage').src = backgroundImages[selectedBackground];
+                document.getElementById('previewOccasion').textContent = selectedCaption || '';
+                document.getElementById('previewAmount').textContent = formatPrice(selectedNominal);
+            }
+        }
+        
+        function formatPrice(amount) {
+            return amount.toLocaleString('ru-RU') + ' ₽';
+        }
+        
+        function updateNextButton() {
+            const btn = document.getElementById('nextBtn');
+            
+            if (currentStep === 1) {
+                btn.disabled = !selectedNominal;
+            } else if (currentStep === 2) {
+                btn.disabled = !selectedBackground || !selectedCaption;
+            } else if (currentStep === 3) {
+                const email = document.getElementById('recipientEmail').value;
+                const phone = document.getElementById('recipientPhone').value;
+                const name = document.getElementById('senderName').value;
+                btn.disabled = !(email || phone) || !name;
+            }
+        }
+        
+        function nextStep() {
+            if (currentStep < 3) {
+                currentStep++;
+                updateStepDisplay();
+            } else {
+                // Submit
+                alert('Спасибо за заказ! Сертификат на сумму ' + formatPrice(selectedNominal) + ' будет отправлен получателю.');
+                closeModal();
+            }
+        }
+        
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        }
+        
+        function updateStepDisplay() {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(s => s.classList.add('hidden'));
+            
+            // Show current step
+            document.getElementById('step' + currentStep).classList.remove('hidden');
+            document.getElementById('step' + currentStep).classList.add('fade-in');
+            
+            // Update indicators
+            for (let i = 1; i <= 3; i++) {
+                const indicator = document.getElementById('step' + i + '-indicator');
+                indicator.classList.remove('active', 'completed');
+                if (i < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (i === currentStep) {
+                    indicator.classList.add('active');
+                }
+            }
+            
+            // Update buttons
+            document.getElementById('backBtn').classList.toggle('hidden', currentStep === 1);
+            document.getElementById('nextBtn').textContent = currentStep === 3 ? 'Оплатить' : 'Далее';
+            
+            // Update summary on step 3
+            if (currentStep === 3) {
+                document.getElementById('summaryAmount').textContent = formatPrice(selectedNominal);
+            }
+            
+            updateNextButton();
+        }
+        
+        // Listen for input changes on step 3
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'recipientEmail' || e.target.id === 'recipientPhone' || e.target.id === 'senderName') {
+                updateNextButton();
+            }
+        });
+    </script>
+</body>
+</html>

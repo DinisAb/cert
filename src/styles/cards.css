@@ -1,0 +1,43 @@
+.nominal-card {
+  transition: all 0.2s ease;
+}
+
+.nominal-card:hover {
+  border-color: #000;
+}
+
+.nominal-card.selected {
+  border-color: #C4785A;
+  background: #C4785A;
+  color: #fff;
+}
+
+.nominal-card.selected .price-text {
+  color: #D4AF37;
+}
+
+.design-card {
+  transition: all 0.2s ease;
+}
+
+.design-card:hover {
+  border-color: #999;
+}
+
+.design-card.selected {
+  border-color: #C4785A;
+}
+
+.caption-card {
+  transition: all 0.2s ease;
+}
+
+.caption-card:hover {
+  border-color: #999;
+}
+
+.caption-card.selected {
+  border-color: #C4785A;
+  background: #C4785A;
+  color: #fff;
+}
