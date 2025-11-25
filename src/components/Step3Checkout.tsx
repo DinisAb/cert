@@ -73,7 +73,7 @@ export const Step3Checkout: React.FC<Step3CheckoutProps> = ({
       <div className="bg-gray-50 rounded-xl p-4 mb-4">
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Сертификат</span>
-          <span className="text-lg gold-accent font-medium">
+          <span className="text-lg font-medium" style={{ color: '#D4AF37' }}>
             {nominal ? nominal.toLocaleString('ru-RU') + ' ₽' : '—'}
           </span>
         </div>
