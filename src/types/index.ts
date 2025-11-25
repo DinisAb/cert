@@ -8,7 +8,7 @@ export type Certificate = {
   message: string;
 };
 
-export type Step = 1 | 2 | 3;
+export type Step = 1 | 2 | 3 | 4;
 
 export const BACKGROUND_IMAGES = {
   'bg1': 'https://cdn.tvuvi.ru/Admin-banners/830f2a5b-8e31-11f0-8203-8e816c8c8642.webp',

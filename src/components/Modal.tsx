@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Step1Nominal } from './Step1Nominal';
 import { Step2Design } from './Step2Design';
 import { Step3Checkout } from './Step3Checkout';
+import { Step4Payment } from './Step4Payment';
 import { StepIndicator } from './StepIndicator';
 import { Certificate, Step } from '../types';
 
@@ -61,12 +62,10 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   const handleNextStep = () => {
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       onNextStep();
     } else {
-      alert(
-        `Спасибо за заказ! Сертификат на сумму ${certificate.nominal?.toLocaleString('ru-RU')} ₽ будет отправлен получателю.`
-      );
+      // После step 4 закрываем модаль
       handleClose();
     }
   };
@@ -82,6 +81,8 @@ export const Modal: React.FC<ModalProps> = ({
     } else if (currentStep === 3) {
       const hasContact = certificate.recipientEmail || certificate.recipientPhone;
       isDisabled = !hasContact || !certificate.senderName;
+    } else if (currentStep === 4) {
+      isDisabled = false; // Step 4 не требует проверки, кнопка неактивна
     }
 
     setIsNextDisabled(isDisabled);
@@ -158,6 +159,16 @@ export const Modal: React.FC<ModalProps> = ({
                 onMessageChange={msg => onUpdateCertificate({ message: msg })}
               />
             )}
+
+            {currentStep === 4 && (
+              <Step4Payment
+                nominal={certificate.nominal}
+                background={certificate.background}
+                caption={certificate.caption}
+                senderName={certificate.senderName}
+                recipientEmail={certificate.recipientEmail}
+              />
+            )}
           </div>
 
           {/* Modal Footer */}
@@ -176,7 +187,7 @@ export const Modal: React.FC<ModalProps> = ({
                 onClick={handleNextStep}
                 disabled={isNextDisabled}
               >
-                {currentStep === 3 ? 'Оплатить' : 'Далее'}
+                {currentStep === 3 ? 'Оплатить' : currentStep === 4 ? 'Закрыть' : 'Далее'}
               </button>
             </div>
           </div>
